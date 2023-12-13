@@ -1,0 +1,101 @@
+﻿@using OrganizationEmployeeBaseWebApp.DataLayer.DTOs;
+@using OrganizationEmployeeBaseWebApp.Models.OrganizationViewModels;
+@model List<OrganizationDTO>
+@{
+    ViewData["Title"] = "Organizations";
+}
+<div class="organizations-info-container">
+
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createOrganizationModal">
+        Добавить организацию
+    </button>
+
+    <form id="loadOrganizations" enctype="multipart/form-data" class="mt-3">
+        <div class="input-group">
+            <input type="file" class="form-control" name="file" id="fileWithLoadedOrganizationsInput" />
+            <button type="button" class="btn btn-success load-organizations-button">Загрузить организации с сотрудниками из .csv</button>
+        </div>
+    </form>
+
+    <button type="button" class="btn btn-success export-organizations-button mt-3">
+        Экспортировать организации с сотрудниками в .csv
+    </button>
+
+    <table class="table organizations-info-table w-100">
+        <tr name="header-row">
+            <th>Id</th>
+            <th>Название</th>
+            <th>ИНН</th>
+            <th>Юр. адрес</th>
+            <th>Факт. адрес</th>
+        </tr>
+        <tr name="empty_organization">
+            <td class="organizationId"></td>
+            <td class="name"></td>
+            <td class="inn"></td>
+            <td class="legalAddress"></td>
+            <td class="actualAddress"></td>
+            <td class="d-inline-block">
+                <button class="btn btn-outline-primary edit-button">Редактировать</button>
+                <button class="btn btn-outline-danger delete-button">Удалить</button>
+                <a class="btn btn-outline-secondary employees-button" href="#" role="button">Сотрудники</a>
+            </td>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var organization in Model)
+            {
+                <tr name="@organization.OrganizationId">
+                    <td class="organizationId">@organization.OrganizationId</td>
+                    <td class="name">@organization.Name</td>
+                    <td class="inn">@organization.INN</td>
+                    <td class="legalAddress">@organization.LegalAddress</td>
+                    <td class="actualAddress">@organization.ActualAddress</td>
+                    <td>
+                        <button class="btn btn-outline-primary edit-button">Редактировать</button>
+                        <button class="btn btn-outline-danger delete-button">Удалить</button>
+                        <a class="btn btn-outline-secondary employees-button" href="/Employees/Employees/@organization.OrganizationId" role="button">Сотрудники</a>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+
+    <div class="modal fade" id="createOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="createOrganizationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-white text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createOrganizationModalLabel">Добавление организации</h5>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("_CreateOrganizationForm", new CreateOrganizationViewModel())
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editOrganizationModal" tabindex="-1" role="dialog" aria-labelledby="editOrganizationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-white text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editOrganizationModalLabel">Редактирование организации</h5>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("_EditOrganizationForm", new EditOrganizationViewModel())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="~/css/organizations/organization.css" asp-append-version="true" />
+@section Scripts {
+    <script src="~/js/organizations/loadOrganizationsPage.js" asp-append-version="true"></script>
+    <script src="~/js/organizations/createOrganization.js" asp-append-version="true"></script>
+    <script src="~/js/organizations/editOrganization.js" asp-append-version="true"></script>
+    <script src="~/js/organizations/deleteOrganization.js" asp-append-version="true"></script>
+    <script src="~/js/organizations/loadOrganizationsFromCSV.js" asp-append-version="true"></script>
+    <script src="~/js/organizations/exportOrganizationsToCSV.js" asp-append-version="true"></script>
+}

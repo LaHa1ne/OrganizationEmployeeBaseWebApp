@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  organizationemployeebasewebapp:
+    container_name: webapp_container
+    image: ${DOCKER_REGISTRY-}organizationemployeebasewebapp
+    build:
+      context: .
+      dockerfile: OrganizationEmployeeBaseWebApp/Dockerfile
+    ports:
+      - "80:80"
+    depends_on: 
+      - mssql_db
+  mssql_db:
+    container_name: mssql_db_container
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    ports:
+      - "1433:1433" 
+    environment:
+      - ACCEPT_EULA=y
+      - SA_PASSWORD=Pa55wOrD
+    volumes:
+      - mssql-data:/var/lib/mssql/data
+volumes:
+  mssql-data:

@@ -1,0 +1,3 @@
+﻿.organizations-info-table tr[name='empty_organization'] {
+    display: none;
+}

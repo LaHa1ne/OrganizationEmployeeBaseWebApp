@@ -1,0 +1,34 @@
+﻿@using OrganizationEmployeeBaseWebApp.Models.OrganizationViewModels;
+@model CreateOrganizationViewModel
+
+<form class="createOrganizationForm" asp-controller="Organizations" asp-action="CreateOrganization" method="post">
+    <div class="mb-4">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="INN"></label>
+        <input asp-for="INN" class="form-control">
+        <span asp-validation-for="INN" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="LegalAddress"></label>
+        <input asp-for="LegalAddress" class="form-control">
+        <span asp-validation-for="LegalAddress" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="ActualAddress"></label>
+        <input asp-for="ActualAddress" class="form-control">
+        <span asp-validation-for="ActualAddress" class="text-danger"></span>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+    </div>
+</form>
+

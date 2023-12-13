@@ -1,0 +1,39 @@
+﻿@using OrganizationEmployeeBaseWebApp.Models.OrganizationViewModels;
+@model EditOrganizationViewModel
+
+<form class="editOrganizationForm" asp-controller="Organizations" asp-action="EditOrganization" method="put">
+    <div class="mb-4">
+        <label asp-for="OrganizationId"></label>
+        <input asp-for="OrganizationId" class="form-control" name="organizationId" readonly>
+        <span asp-validation-for="OrganizationId" class="text-danger"></span>
+    </div>
+    
+    <div class="mb-4">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" name="name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="INN"></label>
+        <input asp-for="INN" class="form-control" name="inn">
+        <span asp-validation-for="INN" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="LegalAddress"></label>
+        <input asp-for="LegalAddress" class="form-control" name="legalAddress">
+        <span asp-validation-for="LegalAddress" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="ActualAddress"></label>
+        <input asp-for="ActualAddress" class="form-control" name="actualAddress">
+        <span asp-validation-for="ActualAddress" class="text-danger"></span>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Редактировать</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+    </div>
+</form>

@@ -1,0 +1,105 @@
+﻿@using OrganizationEmployeeBaseWebApp.DataLayer.DTOs;
+@using OrganizationEmployeeBaseWebApp.Models.EmployeeViewModels;
+@model (List<EmployeeDTO> EmployeeList, int OrganizationId)
+@{
+    ViewData["Title"] = "Employees";
+}
+<div class="employees-info-container">
+
+    <div class="d-none" id="organizationId">@Model.OrganizationId</div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEmployeeModal">
+        Добавить сотрудника
+    </button>
+
+    <form id="loadEmployees" enctype="multipart/form-data" class="mt-3">
+        <div class="input-group">
+            <input type="file" class="form-control" name="file" id="fileWithLoadedEmployeesInput" />
+            <button type="button" class="btn btn-success load-employees-button">Загрузить сотрудников из .csv</button>
+        </div>
+    </form>
+
+    <button type="button" class="btn btn-success export-employees-button mt-3">
+        Экспортировать сотрудников в .csv
+    </button>
+
+    <table class="table employees-info-table w-100">
+        <tr name="header-row">
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Дата рождения</th>
+            <th>Серия паспорта</th>
+            <th>Номер паспорта</th>
+        </tr>
+        <tr name="empty_employee">
+            <td class="employeeId"></td>
+            <td class="firstName"></td>
+            <td class="lastName"></td>
+            <td class="patronymic"></td>
+            <td class="dateOfBirth"></td>
+            <td class="passportSeries"></td>
+            <td class="passportNumber"></td>
+            <td class="d-inline-block">
+                <button class="btn btn-outline-primary edit-button">Редактировать</button>
+                <button class="btn btn-outline-danger delete-button">Удалить</button>
+            </td>
+        </tr>
+        @if (Model.EmployeeList != null)
+        {
+            foreach (var employee in Model.EmployeeList)
+            {
+                <tr name="@employee.EmployeeId">
+                    <td class="employeeId">@employee.EmployeeId</td>
+                    <td class="firstName">@employee.FirstName</td>
+                    <td class="lastName">@employee.LastName</td>
+                    <td class="patronymic">@employee.Patronymic</td>
+                    <td class="dateOfBirth">@employee.DateOfBirth</td>
+                    <td class="passportSeries">@employee.PassportSeries</td>
+                    <td class="passportNumber">@employee.PassportNumber</td>
+                    <td>
+                        <button class="btn btn-outline-primary edit-button">Редактировать</button>
+                        <button class="btn btn-outline-danger delete-button">Удалить</button>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+    <div class="modal fade" id="createEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="createEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-white text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createEmployeeModalLabel">Добавление сотрудника</h5>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("_CreateEmployeeForm", new CreateEmployeeViewModel(){OrganizationId = Model.OrganizationId})
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="editEmployeeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-white text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editEmployeeModalLabel">Редактирование сотрудника</h5>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("_EditEmployeeForm", new EditEmployeeViewModel(){OrganizationId = Model.OrganizationId})
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="~/css/employees/employee.css" asp-append-version="true" />
+@section Scripts {
+    <script src="~/js/employees/loadEmployeesPage.js" asp-append-version="true"></script>
+    <script src="~/js/employees/createEmployee.js" asp-append-version="true"></script>
+    <script src="~/js/employees/editEmployee.js" asp-append-version="true"></script>
+    <script src="~/js/employees/deleteEmployee.js" asp-append-version="true"></script>
+    <script src="~/js/employees/loadEmployeesFromCSV.js" asp-append-version="true"></script>
+    <script src="~/js/employees/exportEmployeesToCSV.js" asp-append-version="true"></script>
+}

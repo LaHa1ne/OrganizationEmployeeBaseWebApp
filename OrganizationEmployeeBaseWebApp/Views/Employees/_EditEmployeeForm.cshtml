@@ -1,0 +1,57 @@
+﻿@using OrganizationEmployeeBaseWebApp.Models.EmployeeViewModels;
+@model EditEmployeeViewModel
+
+<form class="editEmployeeForm" asp-controller="Employees" asp-action="EditEmployee" method="put">
+    <div class="mb-4">
+        <label asp-for="EmployeeId"></label>
+        <input asp-for="EmployeeId" class="form-control" name="employeeId" readonly>
+        <span asp-validation-for="EmployeeId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="FirstName"></label>
+        <input asp-for="FirstName" class="form-control" name="firstName">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="LastName"></label>
+        <input asp-for="LastName" class="form-control" name="lastName">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="Patronymic"></label>
+        <input asp-for="Patronymic" class="form-control" name="patronymic">
+        <span asp-validation-for="Patronymic" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="DateOfBirth"></label>
+        <input asp-for="DateOfBirth" class="form-control" name="dateOfBirth">
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="PassportSeries"></label>
+        <input asp-for="PassportSeries" class="form-control" name="passportSeries">
+        <span asp-validation-for="PassportSeries" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="PassportNumber"></label>
+        <input asp-for="PassportNumber" class="form-control" name="passportNumber">
+        <span asp-validation-for="PassportNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-4">
+        <label asp-for="OrganizationId"></label>
+        <input asp-for="OrganizationId" class="form-control" readonly>
+        <span asp-validation-for="OrganizationId" class="text-danger"></span>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Редактировать</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+    </div>
+</form>

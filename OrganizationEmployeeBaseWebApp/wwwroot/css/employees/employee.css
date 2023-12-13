@@ -1,0 +1,3 @@
+﻿.employees-info-table tr[name='empty_employee'] {
+    display: none;
+}
